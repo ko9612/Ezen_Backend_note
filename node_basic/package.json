@@ -1,0 +1,19 @@
+{
+  "name": "node_basic",
+  "version": "1.0.0",
+  "main": "ex01_global.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ko9612/Ezen_Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ko9612/Ezen_Backend/issues"
+  },
+  "homepage": "https://github.com/ko9612/Ezen_Backend#readme",
+  "description": "매력일자리 백엔드(Node.js) 수업 내용 정리"
+}
