@@ -17,9 +17,15 @@ readStream.on("data", (chunk) => {
   data.push(chunk);
 });
 readStream.on("end", () => {
-  // 더 이상 읽을 데이터가 없을 때 호출
-  const buffer = Buffer.concat(data);
-  console.log(buffer.toString());
+  if (typeof data === "object") {
+    // string으로 들어올 경우
+    console.log(data.toString());
+  } else {
+    // Buffer로 들어올 경우
+    // 더 이상 읽을 데이터가 없을 때 호출
+    const buffer = Buffer.concat(data);
+    console.log(buffer.toString());
+  }
 });
 readStream.on("error", (err) => {
   console.log("파일 읽는 중 에러: ", err.message);
