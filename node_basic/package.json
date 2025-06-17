@@ -15,5 +15,12 @@
     "url": "https://github.com/ko9612/Ezen_Backend/issues"
   },
   "homepage": "https://github.com/ko9612/Ezen_Backend#readme",
-  "description": "매력일자리 백엔드(Node.js) 수업 내용 정리"
+  "description": "매력일자리 백엔드(Node.js) 수업 내용 정리",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  }
 }

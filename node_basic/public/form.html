@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>다양한 폼 데이터 서버에 전송하기</h1>
+    <h2>GET 방식 일 때, 요청 데이터: req.query</h2>
+    <form
+      method="get"
+      action="/login"
+      style="display: flex; flex-direction: column; gap: 10px"
+    >
+      <div>
+        <label for="nick"> 닉네임 </label>
+        <input type="text" name="nick" id="nick" />
+      </div>
+      <div>
+        <label for="passwd"> 비밀번호 </label>
+        <input type="password" name="passwd" id="passwd" />
+      </div>
+      <button style="width: fit-content">로그인</button>
+    </form>
+    <hr color="red" />
+    <h2>POST 방식 일 때, 요청 데이터: req.query</h2>
+    <form
+      method="post"
+      action="/login"
+      style="display: flex; flex-direction: column; gap: 10px"
+    >
+      <div>
+        <label for="nick2"> 닉네임 </label>
+        <input type="text" name="nick2" id="nick2" />
+      </div>
+      <div>
+        <label for="passwd2"> 비밀번호 </label>
+        <input type="password" name="passwd2" id="passwd2" />
+      </div>
+      <button style="width: fit-content">로그인</button>
+    </form>
+  </body>
+</html>
