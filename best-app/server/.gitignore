@@ -1,0 +1,5 @@
+# 환경 변수 파일
+.env
+
+# Node.js 모듈 폴더
+node_modules/
