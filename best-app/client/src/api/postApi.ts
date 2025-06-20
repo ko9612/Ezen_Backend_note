@@ -13,3 +13,13 @@ export const apiFetchPostList = async (): Promise<PostResponseType> => {
   const response = await axiosInstance.get("/posts");
   return response.data;
 };
+
+// post 등록
+export const apiCreatePost = async (data: FormData): Promise<PostType> => {
+  const response = await axiosInstance.post("/posts", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data as PostType;
+};

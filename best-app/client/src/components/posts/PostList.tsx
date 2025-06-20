@@ -20,7 +20,11 @@ export const PostList = () => {
         >
           <div style={{ width: "25%" }}>
             <img
-              src={`http://localhost:7777/images/noimage.png`}
+              src={
+                post.file
+                  ? `http://localhost:7777/uploads/${post.file}`
+                  : `http://localhost:7777/images/noimage.png`
+              }
               alt={post.title}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -30,7 +34,7 @@ export const PostList = () => {
               작성자: {post.writer}
               <br />
               <small className="text-muted">
-                <i>Posted on {post.wdate?.slice(0, 10)}</i>
+                <i>Posted on {post.wdate}</i>
               </small>
             </h5>
             <Link to={`/posts/100/${post.id}`}>

@@ -18,7 +18,7 @@ type PostFormStateType = {
   };
   // Partial: 객체의 모든 속성을 선택적(optional)으로 바꿔줌
   setFormData: (data: Partial<PostFormStateType["formData"]>) => void;
-  // resetForm: () => void;
+  resetForm: () => void;
 };
 
 // post 목록 가져오기, 1건 post 조회, post 삭제 관리(서버 통신 로직 중심)
@@ -53,4 +53,14 @@ export const usePostFormStore = create<PostFormStateType>((set) => ({
         ...data,
       },
     })),
+  resetForm: () =>
+    set({
+      formData: {
+        writer: "",
+        title: "",
+        content: "",
+        file: "",
+        newFile: null,
+      },
+    }),
 }));
