@@ -1,11 +1,18 @@
 import { create } from "zustand";
 import type { PostType } from "../types/post";
-import { apiFetchPostList } from "../api/postApi";
+import {
+  apiFetchPostList,
+  apitFetchPostById,
+  apiDeletePost,
+} from "../api/postApi";
 
 type PostStateType = {
-  postList: PostType[];
-  totalCount: number;
-  fetchPostList: () => Promise<void>;
+  postList: PostType[]; // 글 목록
+  totalCount: number; // 총 게시글 수
+  post: PostType | null; // 특정 게시글
+  fetchPostList: () => Promise<void>; // 글 목록 가져오기
+  fetchPostById: (id: string) => Promise<void>; // 특정 글 정보 가져오기
+  deletePost: (id: string) => Promise<boolean>; // 특정 글 삭제
 };
 
 type PostFormStateType = {
@@ -25,6 +32,7 @@ type PostFormStateType = {
 export const usePostStore = create<PostStateType>((set, get) => ({
   postList: [],
   totalCount: 0,
+  post: null,
   fetchPostList: async () => {
     try {
       // api호출 => 반환해주는 목록, 게시글 수 set
@@ -32,6 +40,24 @@ export const usePostStore = create<PostStateType>((set, get) => ({
       set({ postList: data.data, totalCount: data.totalCount });
     } catch (error) {
       alert("목록 가져오기 실패: " + (error as Error).message);
+    }
+  },
+  fetchPostById: async (id) => {
+    try {
+      const post = await apitFetchPostById(id);
+      set({ post });
+    } catch (error) {
+      console.error("글 내용 보기 실패: " + (error as Error).message);
+    }
+  },
+  deletePost: async (id) => {
+    try {
+      await apiDeletePost(id);
+      set({ post: null }); // 글 내용을 null로 처리
+      return true;
+    } catch (error) {
+      alert("글 삭제 실패: " + (error as Error).message);
+      return false;
     }
   },
 }));

@@ -23,3 +23,21 @@ export const apiCreatePost = async (data: FormData): Promise<PostType> => {
   });
   return response.data as PostType;
 };
+
+// post 상세 조회
+export const apitFetchPostById = async (
+  id: string
+): Promise<PostType | null> => {
+  const response = await axiosInstance.get(`/posts/${id}`);
+  const data = response.data;
+  if (data) {
+    return data.data[0] as PostType;
+  } else {
+    return null;
+  }
+};
+
+// post 삭제
+export const apiDeletePost = async (id: string): Promise<boolean> => {
+  await axiosInstance.delete(`/posts/${id}`);
+};

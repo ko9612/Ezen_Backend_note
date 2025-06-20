@@ -37,7 +37,7 @@ export const PostList = () => {
                 <i>Posted on {post.wdate}</i>
               </small>
             </h5>
-            <Link to={`/posts/100/${post.id}`}>
+            <Link to={`/posts/${post.id}`}>
               <h3>{post.title}</h3>
             </Link>
           </div>

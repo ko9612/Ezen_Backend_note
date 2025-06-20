@@ -1,5 +1,7 @@
 // CRUD 로직
+const fs = require("fs");
 const pool = require("../models/dbPool");
+const path = require("path");
 
 // Create
 exports.createPost = async (req, res) => {
@@ -55,6 +57,55 @@ exports.listPost = async (req, res) => {
       data: posts,
       totalCount: count,
     });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: `Server Error: ${error.message}` });
+  }
+};
+
+exports.viewPost = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const sql = `select id, writer, title, content, 
+    attach as file, date_format(wdate,'%Y-%m-%d %H:%i:%s') as wdate 
+    from posts where id=?`;
+    const [result] = await pool.query(sql, [id]);
+    if (result.length === 0) {
+      return res.status(404).json({ message: "해당 글은 없습니다." });
+    }
+    res.json({ data: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: `Server Error: ${error.message}` });
+  }
+};
+
+exports.deletePost = async (req, res) => {
+  const { id } = req.params;
+  try {
+    // 1. 해당 게시글의 첨부파일명 가져오기
+    const sql1 = `select attach as file from posts where id=?`;
+    const [result] = await pool.query(sql1, [id]);
+    if (result.length === 0) {
+      return res.status(404).json({ message: "해당 글은 존재하지 않습니다." });
+    }
+    const post = result[0];
+    let filePath = "";
+    if (post.file) {
+      filePath = path.join(__dirname, "..", "..", "public", "uploads");
+    }
+    // 2. 파일이 있다면 삭제
+    if (!filePath && fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath); // 동기방식으로 파일을 삭제하는 함수. 비동기 방식 => fs.unlink()
+    }
+
+    // 3. DB에서 해당 글 삭제
+    const sql2 = `delete from posts where id=?`;
+    const [result2] = await pool.query(sql2, [id]);
+    if (result2.affectedRows === 0) {
+      return res.status(404).json({ message: "해당 글은 없어요." });
+    }
+    res.status(200).json({ message: `${id}번 글을 삭제했습니다.` });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Server Error: ${error.message}` });
