@@ -3,15 +3,23 @@ import { usePostStore } from "../../stores/postStore";
 import { useEffect } from "react";
 
 export const PostList = () => {
-  const { fetchPostList, postList, totalCount } = usePostStore();
+  const { fetchPostList, postList, totalCount, totalPages, page, setPage } =
+    usePostStore();
 
+  const pageBlock = 5;
+  const startPage = Math.floor((page - 1) / pageBlock) * pageBlock + 1;
+  const endPage = Math.min(startPage + (pageBlock - 1), totalPages);
   useEffect(() => {
     fetchPostList();
-  }, []);
+  }, [page]);
+
+  // 페이지 블럭 처리 위한 연산
 
   return (
     <div className="post-list">
-      <h3>총 게시글 수: {totalCount}개</h3>
+      <h3>
+        총 게시글 수: {totalCount}개, {page} page / {totalPages} pages
+      </h3>
       {postList.map((post) => (
         <div
           key={post.id}
@@ -44,7 +52,38 @@ export const PostList = () => {
         </div>
       ))}
       {/* pagination */}
-      <div></div>
+      <div className="text-center">
+        {startPage > 1 && (
+          <button
+            onClick={() => setPage(startPage - 1)}
+            className="btn btn-outline-primary mx-1"
+          >
+            Prev
+          </button>
+        )}
+        {Array.from(
+          { length: endPage - startPage + 1 },
+          (_, i) => i + startPage
+        ).map((n) => (
+          <button
+            key={n}
+            className={`btn ${
+              n === page ? "btn-primary" : "btn-outline-primary"
+            } mx-1`}
+            onClick={() => setPage(n)}
+          >
+            {n}
+          </button>
+        ))}
+        {endPage < totalPages && (
+          <button
+            onClick={() => setPage(endPage + 1)}
+            className="btn btn-outline-primary mx-1"
+          >
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 };

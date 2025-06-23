@@ -7,6 +7,8 @@ import Side from "./components/Side";
 import Home from "./pages/Home";
 import PostApp from "./pages/PostApp";
 import PostDetail from "./pages/PostDetail";
+import PostEdit from "./components/posts/PostEdit";
+import SignUpForm from "./components/posts/SignUpForm";
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/posts" element={<PostApp />} />
                 <Route path="/posts/:id" element={<PostDetail />} />
+                <Route path="/post-edit/:id" element={<PostEdit />} />
+                <Route path="/signup" element={<SignUpForm />} />
               </Routes>
             </Col>
           </Row>

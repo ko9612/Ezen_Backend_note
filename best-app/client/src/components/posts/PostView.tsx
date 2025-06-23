@@ -20,8 +20,12 @@ const PostView = () => {
     if (!yn) return;
 
     // 삭제
-    apiDeletePost(id);
-    navigate("/posts");
+    const result = await apiDeletePost(id);
+    if (result) {
+      navigate("/posts");
+    } else {
+      alert("삭제실패");
+    }
   };
 
   if (!post) return <div className="text-primary text-center">Loading...</div>;
@@ -32,7 +36,7 @@ const PostView = () => {
         <div className="col px-5">
           <h1 className="my-5 text-center">Post View [No. {id}]</h1>
           <div className="text-end my-2">
-            <Link to={`/postEdit/${id}`}>
+            <Link to={`/post-edit/${id}`}>
               <button className="btn mx-2">수정</button>
             </Link>
             <button className="btn btn-danger" onClick={handleDelete}>
