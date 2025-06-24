@@ -14,3 +14,14 @@ export type ApiResponseType<T = undefined> = {
   message: string;
   data?: T; // 성공시에만 존재
 };
+
+export type CreateUserType = {
+  insertId: number;
+};
+
+export type CreateUserResponseType = ApiResponseType<CreateUserType>;
+
+export type CreateEmailResponseType = {
+  result: "ok" | "duplex";
+  message: string;
+};
