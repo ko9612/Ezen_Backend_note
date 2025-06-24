@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import PostApp from "./pages/PostApp";
 import PostDetail from "./pages/PostDetail";
 import PostEdit from "./components/posts/PostEdit";
-import SignUpForm from "./components/posts/SignUpForm";
+import SignUpForm from "./pages/SignUpForm";
 import UserList from "./components/users/UserList";
 import LoginModal from "./components/users/loginModal";
 import { useState } from "react";

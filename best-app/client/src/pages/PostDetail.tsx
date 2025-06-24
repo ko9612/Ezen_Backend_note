@@ -1,4 +1,4 @@
-import PostView from "../components/posts/postView";
+import PostView from "../components/posts/PostView";
 
 const PostDetail = () => {
   return <PostView />;

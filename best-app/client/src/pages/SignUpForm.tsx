@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../stores/userStore";
+import { useUserStore } from "../stores/userStore";
 import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
-import type { Role } from "../../types/user";
-import { apiCheckEmail, apiSignUp } from "../../api/userApi";
+import type { Role } from "../types/user";
+import { apiCheckEmail, apiSignUp } from "../api/userApi";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
