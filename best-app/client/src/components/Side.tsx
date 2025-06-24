@@ -1,7 +1,11 @@
 import { Button, ListGroup, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Side = () => {
+type SidePropsType = {
+  setShowLogin: (show: boolean) => void;
+};
+
+const Side = ({ setShowLogin }: SidePropsType) => {
   return (
     <Stack gap={2} className="mx-auto w-100">
       <Button variant="primary" as={Link as any} to="/">
@@ -15,7 +19,14 @@ const Side = () => {
 
       <Button variant="outline-success">Logout</Button>
 
-      <Button variant="outline-success">SignIn</Button>
+      <Button
+        variant="outline-success"
+        onClick={() => {
+          setShowLogin(true);
+        }}
+      >
+        SignIn
+      </Button>
 
       <Button variant="outline-danger"> 인증 테스트</Button>
 

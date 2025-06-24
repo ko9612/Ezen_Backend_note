@@ -8,6 +8,7 @@ const cors = require("cors");
 const indexRouter = require("./src/routes/indexRouter");
 const postRouter = require("./src/routes/postRouter");
 const userRouter = require("./src/routes/userRouter");
+const adminRouter = require("./src/routes/adminRouter");
 
 const port = process.env.PORT || 7777;
 const app = express();
@@ -23,6 +24,7 @@ app.use(cors()); // react와 통신하기 위해 필요한 미들웨어(cors에�
 app.use("/", indexRouter);
 app.use("/api/posts", postRouter);
 app.use("/api/users", userRouter);
+app.use("/api/admin", adminRouter);
 
 // 서버 가동
 app.listen(port, () => {

@@ -25,3 +25,11 @@ export type CreateEmailResponseType = {
   result: "ok" | "duplex";
   message: string;
 };
+
+export type UserListResponseType = {
+  id: number;
+  name: string;
+  email: string;
+  indate: string;
+  role: Role | string;
+};
