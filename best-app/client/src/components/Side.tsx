@@ -2,7 +2,6 @@ import { Button, ListGroup, Stack } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../stores/authStore";
 import { apiAuthTest, apiSignOut } from "../api/userApi";
-import axiosInstance from "../api/axiosInstance";
 
 type SidePropsType = {
   setShowLogin: (show: boolean) => void;

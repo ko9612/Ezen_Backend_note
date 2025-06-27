@@ -89,7 +89,33 @@ exports.logout = async (req, res) => {
   }
 };
 
-exports.refreshVerify = async (req, res) => {};
+exports.refreshVerify = async (req, res) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken)
+    return res.status(401).json({ message: "refreshToken이 없어요" });
+  jwt.verify(refreshToken, process.env.REFRESH_SECRET, async (err, decoded) => {
+    if (err) {
+      //유효하지 않은 토큰일 경우
+      return res
+        .status(403)
+        .json({ message: "유효하지 않은 refreshToken입니다" });
+    } //if---
+    //인증된 토큰일 경우 => DB members 테이블에서 refreshToken으로 회원정보 가져오기
+    const sql = `select id,name,email,role from members where refreshtoken =?`;
+    const [result] = await pool.query(sql, [refreshToken]);
+    if (result.length === 0) {
+      return res.status(403).json({ message: "인증받지 않은 회원입니다" });
+    }
+    const user = result[0];
+    //새로운 accessToken 발급
+    const newAccessToken = generateToken(
+      user,
+      process.env.ACCESS_SECRET,
+      "15m"
+    );
+    res.json({ accessToken: newAccessToken });
+  });
+};
 
 exports.getAuthenticUser = async (req, res) => {
   res.json(req.authUser);
