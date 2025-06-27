@@ -14,6 +14,7 @@ import LoginModal from "./components/users/LoginModal";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "./stores/authStore";
 import { apiRequestAuthUser } from "./api/userApi";
+import ChatApp from "./components/chat/ChatApp";
 
 function App() {
   const [showLogin, setShowLogin] = useState<boolean>(false);
@@ -76,6 +77,7 @@ function App() {
                 <Route path="/post-edit/:id" element={<PostEdit />} />
                 <Route path="/signup" element={<SignUpForm />} />
                 <Route path="/admin/users" element={<UserList />} />
+                <Route path="/chatting" element={<ChatApp />} />
               </Routes>
             </Col>
           </Row>

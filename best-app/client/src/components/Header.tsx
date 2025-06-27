@@ -43,6 +43,9 @@ const Header = () => {
             <Nav.Link eventKey={2} as={Link} to="/mypage">
               MyPage
             </Nav.Link>
+            <Nav.Link as={Link} to="/chatting">
+              Chatting
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
