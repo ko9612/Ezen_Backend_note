@@ -2,11 +2,12 @@ import type { ChangeEvent, FormEvent } from "react";
 import { Button, Form } from "react-bootstrap";
 import { usePostFormStore, usePostStore } from "../../stores/postStore";
 import { apiCreatePost } from "../../api/postApi";
+import { useAuthStore } from "../../stores/authStore";
 
 const PostForm = () => {
   const { formData, setFormData, resetForm } = usePostFormStore();
   const fetchPostList = usePostStore((s) => s.fetchPostList);
-
+  const authUser = useAuthStore((s) => s.authUser);
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -55,7 +56,8 @@ const PostForm = () => {
             name="writer"
             required
             onChange={handleChange}
-            value={formData.writer}
+            value={authUser?.email || formData.writer}
+            disabled={authUser !== null}
           />
         </Form.Group>
         <Form.Group controlId="title">

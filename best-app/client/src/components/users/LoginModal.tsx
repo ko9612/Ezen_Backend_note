@@ -1,6 +1,7 @@
 import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { useAuthStore } from "../../stores/authStore";
+import { apiSignIn } from "../../api/userApi";
 
 type LoginModalProps = {
   show: boolean;
@@ -17,6 +18,49 @@ const LoginModal = ({ show, setShowLogin }: LoginModalProps) => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const { email, passwd } = loginUser;
+    if (!email.trim()) {
+      alert("아이디를 입력하세요");
+      emailRef.current?.focus();
+      return;
+    }
+    if (!passwd.trim()) {
+      alert("비밀번호를 입력하세요");
+      passwdRef.current?.focus();
+      return;
+    }
+    requestLogin();
+  };
+
+  const requestLogin = async () => {
+    try {
+      const res = await apiSignIn(loginUser);
+      const { result, message, data } = res;
+      if (result === "success") {
+        alert(`${message} ${data?.name}님 환영합니다!`);
+        if (data) {
+          // 회원정보, 토큰들 loginAuthUser 통해서 전달, 전역적 state로 관리하기 위해
+          // sessionStorage, localStorage에 accessToken, refreshToken 저장
+          const { accessToken, refreshToken } = data;
+          loginAuthUser({ ...data });
+          sessionStorage.setItem("accessToken", accessToken!);
+          localStorage.setItem("refreshToken", refreshToken!);
+        }
+      } else {
+        alert(message);
+      }
+      setShowLogin(false);
+    } catch (error: any) {
+      console.error(error);
+      alert(error.response?.data?.message);
+    } finally {
+      reset();
+      emailRef.current?.focus();
+    }
+  };
+
+  const reset = () => {
+    setLoginUser({ email: "", passwd: "" });
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

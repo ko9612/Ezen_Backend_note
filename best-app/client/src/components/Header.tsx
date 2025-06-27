@@ -22,8 +22,10 @@ const Header = () => {
               SingUp
             </Nav.Link>
             <Nav.Link href="#pricing">Pricing</Nav.Link>
-            <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+            <NavDropdown title="Admin 관리" id="collapsible-nav-dropdown">
+              <NavDropdown.Item href="/admin/users">
+                사용자 리스트
+              </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
               </NavDropdown.Item>

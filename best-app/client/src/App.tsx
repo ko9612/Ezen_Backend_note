@@ -10,11 +10,40 @@ import PostDetail from "./pages/PostDetail";
 import PostEdit from "./components/posts/PostEdit";
 import SignUpForm from "./pages/SignUpForm";
 import UserList from "./components/users/UserList";
-import LoginModal from "./components/users/loginModal";
-import { useState } from "react";
+import LoginModal from "./components/users/LoginModal";
+import { useEffect, useState } from "react";
+import { useAuthStore } from "./stores/authStore";
+import { apiRequestAuthUser } from "./api/userApi";
 
 function App() {
   const [showLogin, setShowLogin] = useState<boolean>(false);
+
+  // 로그인 액션 가져오기
+  const loginAuthUser = useAuthStore((s) => s.loginAuthUser);
+  const setLoading = useAuthStore((s) => s.setLoading);
+
+  const requestAuthUser = async () => {
+    try {
+      // accesstoken 가지고 서버 쪽에 인증된 사용자 정보를 요청
+      const accessToken = sessionStorage.getItem("accessToken");
+      if (accessToken) {
+        const res = await apiRequestAuthUser(accessToken);
+        loginAuthUser(res); //인증 사용자 정보 state 셋팅후 로딩상태를 false로 설정
+      }
+    } catch (error: any) {
+      console.error("accessToken이 유효하지 않습니다", error);
+      alert(error);
+      sessionStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    requestAuthUser();
+  }, [loginAuthUser, setLoading]);
+
   return (
     <>
       <div className="container fluid py-5">

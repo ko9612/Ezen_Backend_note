@@ -1,3 +1,5 @@
+import type { AuthUserType } from "../stores/authStore";
+
 export type UserType = {
   id?: number;
   name: string;
@@ -15,10 +17,16 @@ export type ApiResponseType<T = undefined> = {
   data?: T; // 성공시에만 존재
 };
 
+// 회원가입 성공시 payload
 export type CreateUserType = {
   insertId: number;
 };
 
+// 로그인 응답시 payload
+export type AuthUserResponseType = ApiResponseType<AuthUserType>;
+// AuthUser(id, name, email, role, accessToken, refreshToken)
+
+// 회원가입 응답
 export type CreateUserResponseType = ApiResponseType<CreateUserType>;
 
 export type CreateEmailResponseType = {

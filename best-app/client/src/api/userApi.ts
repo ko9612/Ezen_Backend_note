@@ -1,4 +1,6 @@
+import type { AuthUserType } from "../stores/authStore";
 import type {
+  AuthUserResponseType,
   CreateEmailResponseType,
   CreateUserResponseType,
   UserListResponseType,
@@ -22,5 +24,38 @@ export const apiCheckEmail = async (
 
 export const apiUserList = async (): Promise<UserListResponseType[]> => {
   const response = await axiosInstance.get("/admin/users");
+  return response.data;
+};
+
+export const apiSignIn = async (loginUser: {
+  email: string;
+  passwd: string;
+}): Promise<AuthUserResponseType> => {
+  const response = await axiosInstance.post("/auth/login", loginUser);
+  return response.data;
+};
+
+export const apiSignOut = async (email: string): Promise<void> => {
+  const response = await axiosInstance.post("/auth/logout", { email });
+  return response.data;
+};
+
+export const apiRequestAuthUser = async (
+  accessToken: string
+): Promise<AuthUserType> => {
+  const response = await axiosInstance.get("/auth/user", {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  return response.data;
+};
+
+export const apiAuthTest = async (
+  atoken: string | null
+): Promise<AuthUserResponseType> => {
+  const response = await axiosInstance.get("/auth/mypage", {
+    headers: {
+      Authorization: `Bearer ${atoken}`,
+    },
+  });
   return response.data;
 };
