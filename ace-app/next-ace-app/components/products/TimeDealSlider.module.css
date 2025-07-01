@@ -4,7 +4,7 @@
   background: #fff7f0;
   border: 2px solid #ffa94d;
   border-radius: 12px;
-  width:85%;
+  width: 85%;
 }
 
 .slide {
@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding:0 1rem;
+  padding: 0 1rem;
 }
 
 .card {
@@ -53,9 +53,9 @@
   justify-content: center;
   align-items: center;
 }
-.box0{
-    background-color: #ff4d4f;
+.box0 {
+  background-color: #ff4d4f;
 }
-.box1{
-     background-color: #4f4dff;
+.box1 {
+  background-color: #4f4dff;
 }

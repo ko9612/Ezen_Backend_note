@@ -1,7 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import styles from "./TimeDealSlider.module.css";
 import { useState, useEffect } from "react";
 import { Autoplay, Navigation } from "swiper/modules";
+import "swiper/swiper-bundle.css";
+import styles from "./TimeDealSlider.module.css";
 
 interface TimeDeal {
   id: number;
@@ -45,7 +46,7 @@ function Countdown({ endTime }: { endTime: string }) {
 export default function TimeDealSlider({ deals, title }: Props) {
   return (
     <div className={styles.container}>
-      <h2>⏰ {title || "타임딜 진행중!"}</h2>
+      <h2 className="text-2xl font-bold">⏰ {title || "타임딜 진행중!"}</h2>
       <Swiper
         slidesPerView={1}
         spaceBetween={20}

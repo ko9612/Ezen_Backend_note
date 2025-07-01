@@ -1,15 +1,10 @@
+import ProductDetail from "@/components/products/ProductDetail";
 import { Product } from "@/types/Product";
 import { GetServerSideProps } from "next";
 import React from "react";
 
-export default function ProductDetail({ product }: { product: Product }) {
-  return (
-    <div>
-      name: {product.name} <br />
-      price: {product.price.toLocaleString()}원 <br />
-      <img src={product.image_url} alt={product.name} className="w-56" />
-    </div>
-  );
+export default function ProductDetailById({ product }: { product: Product }) {
+  return <ProductDetail product={product} />;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

@@ -22,7 +22,7 @@ app.use(cors());
 app.use(morgan("dev"));
 
 app.use("/api/products", productRouter);
-app.use("/api/timeDeal", timeDealRouter);
+app.use("/api/timeDeals", timeDealRouter);
 
 // 서버 가동
 // 옵션: force : true -> 기존 테이블을 강제로 삭제 후 생성

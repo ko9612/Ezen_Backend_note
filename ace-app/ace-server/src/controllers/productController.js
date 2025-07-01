@@ -46,6 +46,24 @@ exports.listProduct = async (req, res) => {
   }
 };
 
+// 스펙별 상품 가져오기(hit, best 상품 가져오기)
+// get /api/products/spec?spec=best
+exports.getProductBySpec = async (req, res) => {
+  const spec = req.query.spec || "normal";
+  try {
+    const products = await Product.findAll({
+      attribute: ["id", "name", "price", "image_url", "spec"],
+      where: { spec },
+      order: [["id", "DESC"]],
+      limit: 4,
+    });
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("스펙별 상품 조회 에러: ", error);
+    res.status(500).json({ message: "서버 오류" });
+  }
+};
+
 exports.getProduct = async (req, res) => {
   try {
     const { id } = req.params;

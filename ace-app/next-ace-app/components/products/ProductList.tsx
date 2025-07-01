@@ -9,6 +9,13 @@ type ProductListProps = {
 };
 
 export default function ProductList({ products, title }: ProductListProps) {
+  if (!products || products.length === 0) {
+    return (
+      <div className={styles.row}>
+        <h3 className={styles.title}>상품 준비중...</h3>
+      </div>
+    );
+  }
   return (
     <div className={styles.container}>
       {title && <h2 className={styles.title}>{title}</h2>}
